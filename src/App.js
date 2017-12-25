@@ -10,15 +10,28 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetch("https://yts.am/api/v2/list_movies.json?sort_by=download_count")
-      .then(response => response.json())
-      .then(json => console.log(json))
-      .catch(err => console.log(err));
+    console.log("did mount");
+    this._getMovies();
   }
 
+  _getMovies = async () => {
+    // async 키워드는 이게 비동기 함수란걸 알려줌.
+    const movies = await this._callApi(); // await: this._callApi()가 끝나길 기다리게 함. this._callApi가 끝나면 movies에 리턴값을 담는다.
+    this.setState({
+      movies
+    });
+  };
+
+  _callApi = () => {
+    return fetch("https://yts.am/api/v2/list_movies.json?sort_by=download_count") // fetch() ajax Request... 영화 API를 불러온다. fetch: 뭔가를 잡는다
+      .then(response => response.json()) // Promise 객체가 리턴된다. Promise.json()을 리턴하면 json으로 변환하여 리턴
+      .then(json => json.data.movies) // json을 출력
+      .catch(err => console.log(err)); // 오류가 발생하면 오류 메세지 출력
+  };
+
   _renderMovies = () => {
-    const movies = this.state.movies.map((movie, index) => {
-      return <Movie title={movie.title} poster={movie.poster} key={index} />;
+    const movies = this.state.movies.map((movie) => {
+      return <Movie title={movie.title} poster={movie.medium_cover_image} key={movie.id} />;
     });
     return movies;
   };
