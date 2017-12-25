@@ -10,40 +10,9 @@ class App extends Component {
   }
 
   componentDidMount() {
-    setTimeout(() => {
-      // this.state.greeting = 'something' // state를 직접 수정하게 되면 render가 작동하지 않는다.
-      this.setState({
-        movies: [
-          // ...this.state.movies, // 기존 movies
-          {
-            title: "Matrix",
-            poster:
-              "https://www.sacramento365.com/wp-content/uploads/sites/www.sacramento365.com/images/2017/11/event-featured-crest-cinema-outlook-com-1509754647.jpeg"
-          },
-          {
-            title: "Oldboy",
-            poster:
-              "https://upload.wikimedia.org/wikipedia/en/6/67/Oldboykoreanposter.jpg"
-          },
-          {
-            title: "Iron Man",
-            poster:
-              "http://moviesmedia.ign.com/movies/image/object/142/14285520/iron_man3-downey-multipleironmen-poster-610x876boxart_160w.jpg"
-          },
-          {
-            title: "Star Wars",
-            poster:
-              "http://steelewars.com/wp-content/uploads/2015/11/12036547_10153344638146799_7716195062476891311_n-1.jpg"
-          },
-          {
-            title: "Fantastic 4",
-            poster:
-              "http://steelewars.com/wp-content/uploads/2015/11/12036547_10153344638146799_7716195062476891311_n-1.jpg"
-          }
-        ]
-      });
-    }, 2000);
-    // state를 변경하면, 새로운 state와 함께 render가 다시 작동한다.
+    console.log(
+      fetch("https://yts.am/api/v2/list_movies.json?sort_by=download_count")
+    );
   }
 
   _renderMovies = () => {
