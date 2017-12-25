@@ -23,15 +23,25 @@ class App extends Component {
   };
 
   _callApi = () => {
-    return fetch("https://yts.am/api/v2/list_movies.json?sort_by=download_count") // fetch() ajax Request... 영화 API를 불러온다. fetch: 뭔가를 잡는다
+    return fetch(
+      "https://yts.am/api/v2/list_movies.json?sort_by=download_count"
+    ) // fetch() ajax Request... 영화 API를 불러온다. fetch: 뭔가를 잡는다
       .then(response => response.json()) // Promise 객체가 리턴된다. Promise.json()을 리턴하면 json으로 변환하여 리턴
       .then(json => json.data.movies) // json을 출력
       .catch(err => console.log(err)); // 오류가 발생하면 오류 메세지 출력
   };
 
   _renderMovies = () => {
-    const movies = this.state.movies.map((movie) => {
-      return <Movie title={movie.title} poster={movie.medium_cover_image} key={movie.id} />;
+    const movies = this.state.movies.map(movie => {
+      return (
+        <Movie
+          title={movie.title}
+          poster={movie.medium_cover_image}
+          key={movie.id}
+          genres={movie.genres}
+          synopsis={movie.synopsis}
+        />
+      );
     });
     return movies;
   };
