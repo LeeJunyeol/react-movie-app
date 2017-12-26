@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import LinesEllipsis from "react-lines-ellipsis";
 import "./Movie.css";
 // 리액트는 MVC에서 뷰를 담당한다.
 // 리액트는 단방향 데이터플로우를 갖는다. 데이터를 변경하면 UI가 변경된다. UI가 변경되더라도 데이터가 변경되지 않는다.
@@ -7,17 +8,25 @@ import "./Movie.css";
 function Movie({ title, poster, genres, synopsis }) {
   return (
     <div className="Movie">
-      <div className="Movie__Columns">
+      <div className="Movie__Column">
         <MoviePoster poster={poster} title={title} />
       </div>
-      <div className="Movie__Columns">
+      <div className="Movie__Column">
         <h1>{title}</h1>
         <div className="Movie__Genres">
           {genres.map((genre, index) => (
             <MovieGenre genre={genre} key={index} />
           ))}
         </div>
-        <p className="Movie__Synopsis">{synopsis}</p>
+        <div className="Movie__Synopsis">
+          <LinesEllipsis
+            text={synopsis}
+            maxLine="3"
+            ellipsis="..."
+            trimRight
+            basedOn="letters"
+          />
+        </div>
       </div>
     </div>
   );
